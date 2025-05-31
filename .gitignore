@@ -22,8 +22,3 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-
-/app/Models/Product.php
-/app/Http/Controllers/ProductController.php
-/resources/js/Pages/Admin
-/app/Http/Controllers/Admin

@@ -9,9 +9,8 @@ export const rupiahFormatter = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
 });
 
-export function parseRupiah(value: String): number {
+export const parseRupiah = (value: string) => {
     return Number(value.replace(/[^0-9,-]+/g, '').replace(',', '.'));
-}
+};
