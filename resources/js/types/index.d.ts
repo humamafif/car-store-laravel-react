@@ -5,6 +5,19 @@ export interface Auth {
     user: User;
 }
 
+export interface Car {
+    id: number;
+    name: string;
+    brand: {
+        id: number;
+        name: string;
+    };
+    description: string;
+    stock: number;
+    price: number;
+    image: string;
+}
+
 export interface BreadcrumbItem {
     title: string;
     href: string;
@@ -29,6 +42,7 @@ export interface SharedData {
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     [key: string]: unknown;
+    cars?: Car[];
 }
 
 export interface User {

@@ -2,13 +2,17 @@
 
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CarsController;
+use App\Http\Controllers\User\CarsController as UserCarsController;
 use App\Http\Middleware\EnsureAdmin;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return Inertia::render('welcome');
+// })->name('home');
+
+Route::get('/', [UserCarsController::class, 'index'])->name('home');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
