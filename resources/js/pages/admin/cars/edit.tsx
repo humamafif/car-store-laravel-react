@@ -41,7 +41,7 @@ export default function EditCar({ car, brands }: { car: Car; brands: Brand[] }) 
         resolver: zodResolver(formSchema),
         defaultValues: {
             image: null,
-            title: car.title,
+            title: car.name,
             brand_id: car.brand?.id || 0,
             description: car.description,
             price: car.price,
@@ -80,7 +80,7 @@ export default function EditCar({ car, brands }: { car: Car; brands: Brand[] }) 
                                                 <p className="mb-1 text-sm text-gray-500">Current image:</p>
                                                 <img
                                                     src={`/storage/${car.image}`}
-                                                    alt={car.title}
+                                                    alt={car.name}
                                                     className="h-40 w-40 rounded-md border object-cover"
                                                 />
                                             </div>

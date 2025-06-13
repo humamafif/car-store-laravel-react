@@ -10,7 +10,7 @@ import { Link, router } from '@inertiajs/react';
 
 export type Car = {
     id: number;
-    title: string;
+    name: string;
     brand: {
         id: number;
         name: string;
@@ -59,7 +59,7 @@ export const columns: ColumnDef<Car>[] = [
         accessorKey: 'image',
         header: 'Image',
         cell: ({ row }) => {
-            const title = row.original.title;
+            const title = row.original.name;
             const image = row.original.image;
             const imageUrl = image ? `/storage/${image}` : '';
             return <img src={imageUrl} alt={title} className="h-16 w-16 rounded object-cover" />;
@@ -71,7 +71,7 @@ export const columns: ColumnDef<Car>[] = [
         cell: ({ row }) => {
             const car = row.original;
             const carId = row.original.id;
-            const carName = car.title;
+            const carName = car.name;
 
             const handleDelete = (e: React.MouseEvent) => {
                 e.preventDefault();
