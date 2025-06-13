@@ -29,7 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const formSchema = z.object({
     image: z.any(),
-    title: z.string().min(1, 'Car name is required'),
+    name: z.string().min(1, 'Car name is required'),
     brand_id: z.number().min(1, 'Brand is required'),
     description: z.string().min(1, 'Car description is required'),
     price: z.number().min(0, 'Price must be a positive number'),
@@ -41,7 +41,7 @@ export default function EditCar({ car, brands }: { car: Car; brands: Brand[] }) 
         resolver: zodResolver(formSchema),
         defaultValues: {
             image: null,
-            title: car.name,
+            name: car.name,
             brand_id: car.brand?.id || 0,
             description: car.description,
             price: car.price,
@@ -50,7 +50,7 @@ export default function EditCar({ car, brands }: { car: Car; brands: Brand[] }) 
     });
     function onSubmit(values: z.infer<typeof formSchema>) {
         const formData = new FormData();
-        formData.append('title', values.title);
+        formData.append('name', values.name);
         formData.append('brand_id', values.brand_id.toString());
         formData.append('description', values.description);
         formData.append('price', values.price.toString());
@@ -104,7 +104,7 @@ export default function EditCar({ car, brands }: { car: Car; brands: Brand[] }) 
                             />
                             <FormField
                                 control={form.control}
-                                name="title"
+                                name="name"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Car Name</FormLabel>

@@ -28,7 +28,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const formSchema = z.object({
     image: z.any(),
-    title: z.string().min(1, 'Car name is required'),
+    name: z.string().min(1, 'Car name is required'),
     description: z.string().min(1, 'Car description is required'),
     price: z.number().min(0, 'Price must be a positive number'),
     stock: z.number().int().min(0, 'Stock must be a non-negative integer'),
@@ -40,7 +40,7 @@ export default function CreateCar({ brands }: { brands: Brand[] }) {
         resolver: zodResolver(formSchema),
         defaultValues: {
             image: null,
-            title: '',
+            name: '',
             description: '',
             price: 0,
             brand_id: '',
@@ -82,7 +82,7 @@ export default function CreateCar({ brands }: { brands: Brand[] }) {
                             />
                             <FormField
                                 control={form.control}
-                                name="title"
+                                name="name"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Car Name</FormLabel>

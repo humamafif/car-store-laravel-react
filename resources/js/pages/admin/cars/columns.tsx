@@ -31,7 +31,7 @@ export const columns: ColumnDef<Car>[] = [
         },
     },
     {
-        accessorKey: 'title',
+        accessorKey: 'name',
         header: 'Car Name',
     },
     {

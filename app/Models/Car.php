@@ -10,7 +10,7 @@ class Car extends Model
     protected $fillable = [
         'brand_id',
         'image',
-        'title',
+        'name',
         'description',
         'price',
         'stock',

@@ -40,7 +40,7 @@ class CarsController extends Controller
         $request->validate([
             'brand_id' => 'required|exists:brands,id',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -83,7 +83,7 @@ class CarsController extends Controller
         $request->validate([
             'brand_id' => 'required|exists:brands,id',
             'image' => 'image|mimes:jpg,jpeg,png|max:2048',
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -99,7 +99,7 @@ class CarsController extends Controller
             $car->update([
                 'brand_id' => $request->brand_id,
                 'image' => $imagePath,
-                'title' => $request->title,
+                'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
                 'stock' => $request->stock,
@@ -107,7 +107,7 @@ class CarsController extends Controller
         } else {
             $car->update([
                 'brand_id' => $request->brand_id,
-                'title' => $request->title,
+                'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
                 'stock' => $request->stock,
