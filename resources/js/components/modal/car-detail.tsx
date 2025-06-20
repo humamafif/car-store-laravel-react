@@ -1,22 +1,16 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
-
-interface Car {
-    id: number;
-    name: string;
-    brand: { name: string };
-    image: string;
-    description: string;
-    price: number;
-    stock: number;
-}
+import { Car } from '@/types';
+import { useState } from 'react';
 
 interface CarDetailDialogProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    onAddToCart?: (car_id: number, item: number) => void;
     car: Car | null;
 }
 
-export default function CarDetailDialog({ open, onOpenChange, car }: CarDetailDialogProps) {
+export default function CarDetailDialog({ open, onOpenChange, car, onAddToCart }: CarDetailDialogProps) {
+    const [itemCount, setItemCount] = useState(1);
     if (!car) return null;
 
     return (
@@ -42,9 +36,21 @@ export default function CarDetailDialog({ open, onOpenChange, car }: CarDetailDi
 
                         <div className="text-xl font-bold text-green-700 dark:text-green-400">Rp {Number(car.price).toLocaleString('id-ID')}</div>
 
-                        <div className="pt-4">
+                        <div className="flex gap-3 pt-4">
                             <button className="rounded-lg bg-black px-6 py-2 text-white transition-all hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-300">
                                 Pesan Sekarang
+                            </button>
+                            <input
+                                className="rounded-lg border border-black"
+                                type="number"
+                                value={itemCount}
+                                onChange={(value) => setItemCount(Number(value.target.value))}
+                            />
+                            <button
+                                onClick={() => onAddToCart && car && onAddToCart(car.id, itemCount)}
+                                className="rounded-lg bg-black px-6 py-2 text-white transition-all hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-300"
+                            >
+                                Add to cart
                             </button>
                         </div>
                     </div>

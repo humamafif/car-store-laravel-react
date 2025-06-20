@@ -42,7 +42,7 @@ export interface SharedData {
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     [key: string]: unknown;
-    cars?: Car[];
+    cars: Car[];
 }
 
 export interface User {

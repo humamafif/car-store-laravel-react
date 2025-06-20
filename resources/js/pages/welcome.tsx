@@ -1,8 +1,9 @@
 import { default as CarDetailDialog } from '@/components/modal/car-detail';
 import { Button } from '@/components/ui/button';
 import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Welcome() {
     const { auth, cars } = usePage<SharedData>().props;
@@ -12,6 +13,16 @@ export default function Welcome() {
     const handleOpenDialog = (car: any) => {
         setSelectedCar(car);
         setOpen(true);
+    };
+
+    const onAddToCart = (car_id: number, item: number) => {
+        router.post(route('cart.store'), {
+            car_id: car_id,
+            quantity: item,
+        });
+        toast.success('Item added to cart successfully!');
+        console.log('Car ID:', car_id);
+        console.log('Item count:', item);
     };
 
     console.log('Cars data:', cars);
@@ -104,7 +115,7 @@ export default function Welcome() {
                         </div>
                     </section>
                 </div>
-                <CarDetailDialog open={open} onOpenChange={setOpen} car={selectedCar} />
+                <CarDetailDialog open={open} onOpenChange={setOpen} car={selectedCar} onAddToCart={onAddToCart} />
                 <div className="hidden h-14.5 lg:block"></div>
             </div>
         </>
