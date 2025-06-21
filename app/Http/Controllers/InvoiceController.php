@@ -97,9 +97,35 @@ class InvoiceController extends Controller
         }
     }
 
-    public function show(Invoice $invoice)
+    public function show($id)
     {
-        $invoice = Invoice::with('items', 'items.car')->findOrFail($invoice->id);
+        $invoice = Invoice::with('items', 'items.car')->findOrFail($id);
         return Inertia::render('invoice-detail', compact('invoice'));
+    }
+
+    public function callBackXendit(Request $request)
+    {
+        $getToken = $request->header('x-callback-token');
+        $callbackToken = config('xendit.CALLBACK_TOKEN');
+        if ($getToken !== $callbackToken) {
+            return response()->json(['message' => 'unauthorized'], 401);
+        }
+
+        // cek external id dari xendit dengan external id di database
+        $invoice = Invoice::where('invoice_code', $request->external_id)->first();
+        if (!$invoice) {
+            return response()->json(['message' => 'invoice not found'], 404);
+        }
+        // cek status dari xendit
+        $date = date_create($request->paid_at);
+        $paid_at = date_format($date, 'Y-m-d H:i:s');
+        $invoice->update([
+            'paid_at' => $paid_at,
+            'status' => ($request->status === 'PAID' || $request->status === 'SETTLED') ? 'paid' : 'failed',
+            'payment_method' => $request->payment_method,
+            'payment_channel' => $request->payment_channel,
+        ]);
+        // return dd($invoice);
+        return response()->json(['message' => 'success'], 200);
     }
 }
